@@ -6,3 +6,7 @@ go install github.com/create-go-app/cli/v3/cmd/cgapp@latest
 
 brew install golangci-lint
 
+brew install sqlc
+
+brew install golang-migrate
+
