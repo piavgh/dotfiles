@@ -123,3 +123,5 @@ eval $(thefuck --alias)
 
 export PATH="/usr/local/sbin:$PATH"
 
+export PATH="$PATH:/Users/piavgh/.foundry/bin"
+
