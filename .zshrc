@@ -125,3 +125,12 @@ export PATH="/usr/local/sbin:$PATH"
 
 export PATH="$PATH:/Users/piavgh/.foundry/bin"
 
+[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+
+# Alias
+alias dup="docker-compose up -d"
+alias ddown="docker-compose down -v"
+
+[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
+
