@@ -75,7 +75,10 @@ plugins=(
     zsh-autosuggestions
     history-substring-search
     zsh-syntax-highlighting
+	tmux
 )
+
+ZSH_TMUX_AUTOSTART=true
 
 source $ZSH/oh-my-zsh.sh
 
@@ -110,8 +113,6 @@ source $ZSH/oh-my-zsh.sh
 
 eval "$(fnm env)"
 
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
@@ -127,6 +128,8 @@ export PATH="$PATH:/Users/piavgh/.foundry/bin"
 
 [[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
 
+export KUBE_EDITOR=/usr/local/bin/nvim
+
 # Alias
 alias dup="docker compose up -d"
 alias ddown="docker compose down -v"
@@ -134,3 +137,15 @@ alias ddown="docker compose down -v"
 [ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
 function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
 
+export GOPATH=$HOME/go
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+complete -C '/usr/local/bin/aws_completer' aws
+
+fpath+=${ZDOTDIR:-~}/.zsh_functions
