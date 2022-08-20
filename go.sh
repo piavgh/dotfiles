@@ -22,3 +22,5 @@ go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 
 brew install goreleaser/tap/goreleaser
 
+go install github.com/spf13/cobra-cli@latest
+
