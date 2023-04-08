@@ -8,15 +8,28 @@ sudo launchctl load -w /Library/LaunchDaemons/com.hoangtrinhj.ttl65.plist
 # Install sol2uml
 yarn global add sol2uml
 
+# Install Go tools
+chmod +x ./go.sh
+./go.sh
+
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 rustup update
 
-# Install Rust libs
-cargo install cargo-eval
-cargo install cargo-generate
-cargo install cargo-shuttle # https://www.shuttle.rs/
+# Install Rust tools
+chmod +x ./rust.sh
+./rust.sh
+
+# Install Solidity version manager
+cargo install svm-rs
 
 # Install Foundry
 curl -L https://foundry.paradigm.xyz | bash
 foundryup
+
+# Install slither
+pip install slither-analyzer
+
+# Install k8s tools
+chmod +x ./k8s.sh
+./k8s.sh
