@@ -78,10 +78,12 @@ window:
   #
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-  #startup_mode: Windowed
+  startup_mode: Maximized
 
   # Window title
   #title: Alacritty
+
+  option_as_alt: Both
 
   # Allow terminal applications to change Alacritty's window title.
   #dynamic_title: true
@@ -176,7 +178,7 @@ font:
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
   # it is recommended to set `use_thin_strokes` to `false`.
-  use_thin_strokes: true
+  # use_thin_strokes: false
 
   # Use built-in font for box drawing characters.
   #
@@ -441,13 +443,13 @@ shell:
   args:
     - -l
     - -c
-    - "tmux attach || tmux"
+    - "zellij attach || zellij"
 
 # Startup directory
 #
 # Directory the shell is started in. If this is unset, or `None`, the working
 # directory of the parent process will be used.
-#working_directory: None
+working_directory: None
 
 # Send ESC (\x1b) before characters when alt is pressed.
 #alt_send_esc: true
