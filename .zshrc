@@ -75,10 +75,7 @@ plugins=(
     zsh-autosuggestions
     history-substring-search
     zsh-syntax-highlighting
-	tmux
 )
-
-ZSH_TMUX_AUTOSTART=true
 
 source $ZSH/oh-my-zsh.sh
 
@@ -111,41 +108,85 @@ source $ZSH/oh-my-zsh.sh
 # bindkey '\e[A' history-beginning-search-backward
 # bindkey '\e[B' history-beginning-search-forward
 
+export PATH="/usr/local/sbin:$PATH"
+
+eval "$(starship init zsh)"
+
 eval "$(fnm env)"
-
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-USER_BASE_BIN=$(python -m site --user-base)/bin
-export PATH="$PATH:$USER_BASE_BIN"
 
 eval $(thefuck --alias)
 
-export PATH="/usr/local/sbin:$PATH"
-
-export PATH="$PATH:/Users/piavgh/.foundry/bin"
-
-[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
-
-export KUBE_EDITOR=/usr/local/bin/nvim
-
 # Alias
 alias dup="docker compose up -d"
-alias ddown="docker compose down -v"
+alias ddown="docker compose down -v --remove-orphans"
 
-[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
-function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
-
+# Go
 export GOPATH=$HOME/go
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"
-export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOROOT/bin"
 export PATH="$PATH:$GOPATH/bin"
+
+# Geth
+export ETH_KEYSTORE=///Users/piavgh/Library/Ethereum/keystore/UTC--2023-02-05T10-36-48.962384000Z--631cf2487c312cf0659f9b6b93ec93dffefbf83e
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/piavgh/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/piavgh/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/piavgh/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/piavgh/google-cloud-sdk/completion.zsh.inc'; fi
 
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 complete -C '/usr/local/bin/aws_completer' aws
 
-fpath+=${ZDOTDIR:-~}/.zsh_functions
+# kubectl
+[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+function kubectl() {
+    if ! type __start_kubectl >/dev/null 2>&1; then
+        source <(command kubectl completion zsh)
+    fi
+
+    command kubectl "$@"
+}
+
+export KUBE_EDITOR=/usr/local/bin/hx
+USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+export PATH="$PATH:/Users/piavgh/.foundry/bin"
+
+# Python
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# sops & age
+export SOPS_AGE_KEY_FILE=$HOME/.sops/key.txt
+export EDITOR=hx
+
+# cd commands
+eval "$(jump shell)"
+eval "$(zoxide init zsh)"
+
+export PATH="$PATH:/Users/piavgh/.bifrost/bin"
+
+# Find text
+# -r or -R is recursive,
+# -n is line number, and
+# -w stands for match the whole word.
+# -i stands for ignore case (optional in your case).
+alias grnwi="grep -Rnwi"
+
+# Huff
+export PATH="$PATH:/Users/piavgh/.huff/bin"
+
+# Aliases
+alias removeoldbranchs="git branch -vv | grep ': gone]'|  grep -v '\*' | awk '{ print $1; }' | xargs -r git branch -df"
+
+## Terminal Multiplexer
+alias zi="zellij"
+# pnpm
+export PNPM_HOME="/Users/piavgh/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
