@@ -24,3 +24,4 @@ brew install goreleaser/tap/goreleaser
 
 go install github.com/spf13/cobra-cli@latest
 
+go install github.com/cosmtrek/air@latest
