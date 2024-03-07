@@ -16,16 +16,13 @@ chmod +x ./go.sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 rustup update
 
-# Install Rust tools
-chmod +x ./rust.sh
-./rust.sh
-
-# Install Solidity version manager
-cargo install svm-rs
-
 # Install Foundry
 curl -L https://foundry.paradigm.xyz | bash
 foundryup
+
+# Install Rust tools
+chmod +x ./rust.sh
+./rust.sh
 
 # Install slither
 pip install slither-analyzer
@@ -33,3 +30,7 @@ pip install slither-analyzer
 # Install k8s tools
 chmod +x ./k8s.sh
 ./k8s.sh
+
+# Install utilities
+chmod +x ./utilities.sh
+./utilities.sh

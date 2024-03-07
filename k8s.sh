@@ -1,5 +1,5 @@
-brew install minikube
+# brew install minikube
 brew install kind
 brew install helm
-brew install octant
+# brew install octant
 
