@@ -1,0 +1,25 @@
+[core]
+	excludesfile = $HOME/.gitignore_global
+	commentChar = ";"
+	editor = vim
+[user]
+	name = Hoang Trinh
+	email = hoang.trinhj@gmail.com
+	signingkey = 
+[commit]
+	gpgsign = true
+[gpg]
+	program = /usr/local/bin/gpg
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[fetch]
+	prune = true
+[diff]
+	colorMoved = zebra
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
