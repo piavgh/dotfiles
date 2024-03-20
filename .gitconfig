@@ -1,7 +1,7 @@
 [core]
-	excludesfile = $HOME/.gitignore_global
+	excludesfile = /Users/h8h/.gitignore_global
 	commentChar = ";"
-	editor = vim
+	editor = nvim
 [user]
 	name = Hoang Trinh
 	email = hoang.trinhj@gmail.com
@@ -23,3 +23,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[alias]
+	cleanup = "!git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
+
